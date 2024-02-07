@@ -1,0 +1,41 @@
+ Supongamos que ya tienes tu conexión a la base de datos establecida
+
+ Función para filtrar categorías por un valor específico en id_cat
+function filtrarCategoriasPorId($conexion, $valor) {
+    $query = SELECT  FROM nombre_de_tu_tabla WHERE $valor = ANY(id_cat);
+    $result = pg_query($conexion, $query);
+
+    $categorias = array();
+    while ($row = pg_fetch_assoc($result)) {
+        $categorias[] = $row;
+    }
+
+    return $categorias;
+}
+
+ Filtrar categorías por el valor 3
+$categorias_filtradas_3 = filtrarCategoriasPorId($conexion, 3);
+
+ Filtrar categorías por el valor 9
+$categorias_filtradas_9 = filtrarCategoriasPorId($conexion, 9);
+
+ Imprimir la tabla filtrada en formato HTML (para fines de demostración)
+function imprimirTabla($categorias_filtradas) {
+    echo 'table border=1
+            tr
+                thid_catth
+                thdescip_catth
+            tr';
+
+    foreach ($categorias_filtradas as $categoria) {
+        echo 'tr';
+        echo 'td{' . implode(', ', $categoria['id_cat']) . '}td';
+        echo 'td' . $categoria['descip_cat'] . 'td';
+        echo 'tr';
+    }
+
+    echo 'table';
+}
+
+ Cerrar la conexión a la base de datos
+pg_close($conexion);

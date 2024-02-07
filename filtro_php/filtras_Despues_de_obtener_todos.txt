@@ -1,0 +1,38 @@
+$categorias = array(
+    array('id_cat' => array(1, 2, 3, 4, 5, 6, 7, 8, 9), 'descip_cat' => 'Electrónicos'),
+    array('id_cat' => array(1, 2, 3, 4, 5, 8), 'descip_cat' => 'Ropa'),
+    array('id_cat' => array(3, 4), 'descip_cat' => 'Hogar'),
+    array('id_cat' => array(1, 2, 8, 7, 5), 'descip_cat' => 'Deportes'),
+    array('id_cat' => array(6, 9), 'descip_cat' => 'Libros'),
+    array('id_cat' => array(3, 4, 8), 'descip_cat' => 'Juguetes'),
+    array('id_cat' => array(1, 2, 9), 'descip_cat' => 'Alimentos'),
+);
+
+//$categorias = array();
+//while ($row = mysqli_fetch_assoc($result)) { // sql de un select toda la tabla
+    $categorias[] = $row;
+//}
+
+
+// Filtrar las categorías en PHP
+
+// Usando el filtrado directo
+$categorias_filtradas_directo_3 = array_filter($categorias, function ($categoria) {
+    return in_array(3, $categoria['id_cat']);
+});
+$categorias_filtradas_directo_9 = array_filter($categorias, function ($categoria) {
+    return in_array(9, $categoria['id_cat']);
+});
+
+
+
+function filtrarCategoriasPorValor($categorias, $valor) {
+    return array_filter($categorias, function ($categoria) use ($valor) {
+        return in_array($valor, $categoria['id_cat']);
+    });
+}
+
+// Uso de la función con diferentes valores
+$categorias_filtradas_3 = filtrarCategoriasPorValor($categorias, 3);
+$categorias_filtradas_9 = filtrarCategoriasPorValor($categorias, 9);
+
